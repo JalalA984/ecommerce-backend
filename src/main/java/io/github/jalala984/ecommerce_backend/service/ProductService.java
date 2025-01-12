@@ -15,7 +15,10 @@ public class ProductService {
         this.repo = repo;
     }
 
-    public List<Product> getAllProducts(){
-        return repo.findAll();
+    public List<Product> getAllProducts() {
+        List<Product> products = repo.findAll();
+        System.out.println("Products fetched: " + products); // Debugging
+        return products;
     }
+
 }
