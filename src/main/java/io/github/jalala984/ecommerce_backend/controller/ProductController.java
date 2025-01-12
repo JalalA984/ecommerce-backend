@@ -2,10 +2,9 @@ package io.github.jalala984.ecommerce_backend.controller;
 
 import io.github.jalala984.ecommerce_backend.model.Product;
 import io.github.jalala984.ecommerce_backend.service.ProductService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,14 +19,21 @@ public class ProductController {
         this.service = service;
     }
 
-    @GetMapping("/")
-    public String home(){
-        return "Hello app!";
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getAllProducts(){
+        return new ResponseEntity<>(service.getAllProducts(), HttpStatus.OK);
     }
 
-    @GetMapping("/products")
-    public List<Product> getAllProducts(){
-        return service.getAllProducts();
+
+    @GetMapping("/product/{prodId}")
+    public ResponseEntity<Product> getProductById(@PathVariable int prodId){
+        Product prod = service.getProductById(prodId);
+
+        if (prod != null) {
+            return new ResponseEntity<>(service.getProductById(prodId), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }

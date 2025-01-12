@@ -17,8 +17,11 @@ public class ProductService {
 
     public List<Product> getAllProducts() {
         List<Product> products = repo.findAll();
-        System.out.println("Products fetched: " + products); // Debugging
+        // System.out.println("Products fetched: " + products); // Debugging
         return products;
     }
 
+    public Product getProductById(int prodId) {
+        return repo.findById(prodId).orElse(null);
+    }
 }
