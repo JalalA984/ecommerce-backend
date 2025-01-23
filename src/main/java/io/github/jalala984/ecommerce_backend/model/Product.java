@@ -1,10 +1,7 @@
 package io.github.jalala984.ecommerce_backend.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
@@ -20,11 +17,23 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String name;
     private String desc;
     private String brand;
     private BigDecimal price;
+    private String category;
+    @JsonFormat(pattern = "yyyy-MM-dd") // Proper serialization for Date
+    private Date releaseDate;
+    private boolean available;
+    private int quantity;
+    private String imageName;
+    private String imageType;
+    @Lob
+    private byte[] imageData;
+
+
+
+
 
     @Override
     public String toString() {
@@ -40,14 +49,6 @@ public class Product {
                 ", quantity=" + quantity +
                 '}';
     }
-
-    private String category;
-
-    @JsonFormat(pattern = "yyyy-MM-dd") // Proper serialization for Date
-    private Date releaseDate;
-
-    private boolean available;
-    private int quantity;
 
     public int getId() {
         return id;
@@ -119,5 +120,29 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
+
+    public String getImageType() {
+        return imageType;
+    }
+
+    public void setImageType(String imageType) {
+        this.imageType = imageType;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }
